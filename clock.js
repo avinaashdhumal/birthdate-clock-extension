@@ -23,8 +23,10 @@ function speakGreeting() {
       const months = Math.floor(days / 30.4375);
       const years = Math.floor(months / 12);
   
-      const display = `${years}y ${months % 12}m ${days % 30}d\n${hours % 24}h ${minutes % 60}m ${seconds % 60}s`;
-      document.getElementById('timeDisplay').innerText = display;
+      const yearsLine = `${years}y ${months % 12}m ${days % 30}d`;
+      const timeLine = `${hours % 24}h ${minutes % 60}m ${seconds % 60}s`;
+      document.getElementById('yearsLine').innerText = yearsLine;
+      document.getElementById('timeLine').innerText = timeLine;
   
       const hourStr = now.getHours().toString().padStart(2, '0');
       const minStr = now.getMinutes().toString().padStart(2, '0');
@@ -58,3 +60,4 @@ function speakGreeting() {
   updateMeta();
   setBackgroundByTime();
   speakGreeting();
+  

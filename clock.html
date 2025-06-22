@@ -1,20 +1,416 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .header {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 8px;
+      color: #64d2ff;
+      text-shadow: 0 0 20px rgba(100, 210, 255, 0.5);
+    }
+
+    .current-time-container {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      text-align: right;
+      z-index: 10;
+    }
+
+    .current-time {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fbbf24;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+      margin-bottom: 5px;
+    }
+
+    .current-info {
+      font-size: 1rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .birth-time-display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 60px 0;
+      perspective: 1000px;
+    }
+
+    .time-counter {
+      background: linear-gradient(145deg, #1e293b, #334155);
+      border-radius: 20px;
+      padding: 40px 60px;
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(100, 210, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .time-counter::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(100, 210, 255, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .counter-unit {
+      text-align: center;
+      position: relative;
+    }
+
+    .counter-label {
+      font-size: 0.9rem;
+      color: #64d2ff;
+      font-weight: 500;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .counter-value {
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 30px rgba(100, 210, 255, 0.6);
+      font-family: 'Courier New', monospace;
+      position: relative;
+      background: linear-gradient(45deg, #64d2ff, #ffffff, #64d2ff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: textGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .time-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .time-detail {
+      text-align: center;
+    }
+
+    .time-detail-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .time-detail-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fbbf24;
+      font-family: 'Courier New', monospace;
+      text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+    }
+
+    .decorative-line {
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #64d2ff, transparent);
+      margin: 30px auto;
+      position: relative;
+    }
+
+    .decorative-line::before,
+    .decorative-line::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #64d2ff;
+      border-radius: 50%;
+      top: -3px;
+      box-shadow: 0 0 10px #64d2ff;
+    }
+
+    .decorative-line::before {
+      left: -10px;
+    }
+
+    .decorative-line::after {
+      right: -10px;
+    }
+
+    .footer-stats {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+      }
+
+      .counter-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .counter-value {
+        font-size: 3rem;
+      }
+
+      .time-counter {
+        padding: 30px 40px;
+        margin: 40px 20px;
+      }
+
+      .current-time-container {
+        top: 20px;
+        right: 20px;
+      }
+    }
+  </style>
 </head>
 <body id="body">
-  <div class="clock-shell">
-    <div class="time-block">
-      <div class="main-clock" id="mainTime">--:--</div>
-      <div class="side-info">
-        <div id="dayText">SUN 16</div>
-        <div id="tempText">28°</div>
-        <div><span class="alarm-icon">🕗</span> 5:00AM</div>
+  <div class="header">LIFE TIME</div>
+  
+  <div class="current-time-container">
+    <div class="current-time" id="mainTime">--:--</div>
+    <div class="current-info">
+      <div id="dayText">SUN 22</div>
+      <div id="tempText">28°</div>
+      <div><span>🕗</span> 5:00AM</div>
+    </div>
+  </div>
+
+  <div class="birth-time-display">
+    <div class="time-counter">
+      <div class="counter-grid">
+        <div class="counter-unit">
+          <div class="counter-label">Years</div>
+          <div class="counter-value" id="years">00</div>
+        </div>
+        <div class="counter-unit">
+          <div class="counter-label">Months</div>
+          <div class="counter-value" id="months">00</div>
+        </div>
+        <div class="counter-unit">
+          <div class="counter-label">Days</div>
+          <div class="counter-value" id="days">00</div>
+        </div>
+        <div class="counter-unit">
+          <div class="counter-label">Hours</div>
+          <div class="counter-value" id="hours">00</div>
+        </div>
+      </div>
+      
+      <div class="decorative-line"></div>
+      
+      <div class="time-detail-grid">
+        <div class="time-detail">
+          <div class="time-detail-label">Minutes</div>
+          <div class="time-detail-value" id="minutes">00</div>
+        </div>
+        <div class="time-detail">
+          <div class="time-detail-label">Seconds</div>
+          <div class="time-detail-value" id="seconds">00</div>
+        </div>
+        <div class="time-detail">
+          <div class="time-detail-label">Total Days</div>
+          <div class="time-detail-value" id="totalDays">0</div>
+        </div>
+        <div class="time-detail">
+          <div class="time-detail-label">Total Hours</div>
+          <div class="time-detail-value" id="totalHours">0</div>
+        </div>
       </div>
     </div>
-    <div class="birth-clock" id="timeDisplay">Loading...</div>
   </div>
-  <script src="clock.js"></script>
+
+  <div class="footer-stats">
+    <div>Time since birth • Live counter • Personal milestone tracker</div>
+  </div>
+
+  <script>
+    function speakGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "Hello";
+      if (hour < 12) greeting = "Good morning";
+      else if (hour < 18) greeting = "Good afternoon";
+      else greeting = "Good evening";
+      
+      if ('speechSynthesis' in window) {
+        const utter = new SpeechSynthesisUtterance(`${greeting}, welcome back.`);
+        utter.volume = 0.7;
+        utter.rate = 1;
+        speechSynthesis.speak(utter);
+      }
+    }
+
+    function updateDisplay() {
+      // For demo purposes, using a sample birth date
+      // Replace this with your actual birth date
+      const birthDatetime = '1995-06-15T10:30:00'; // Sample date - replace with actual
+      
+      if (typeof chrome !== 'undefined' && chrome.storage) {
+        chrome.storage.sync.get('birthDatetime', ({ birthDatetime: storedBirth }) => {
+          if (storedBirth) {
+            calculateAndDisplay(storedBirth);
+          } else {
+            calculateAndDisplay(birthDatetime);
+          }
+        });
+      } else {
+        calculateAndDisplay(birthDatetime);
+      }
+    }
+
+    function calculateAndDisplay(birthDatetime) {
+      const birth = new Date(birthDatetime);
+      const now = new Date();
+      const diff = now - birth;
+      
+      // Calculate time units
+      const totalSeconds = Math.floor(diff / 1000);
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const totalHours = Math.floor(totalMinutes / 60);
+      const totalDays = Math.floor(totalHours / 24);
+      
+      const years = Math.floor(totalDays / 365.25);
+      const months = Math.floor((totalDays % 365.25) / 30.4375);
+      const days = Math.floor((totalDays % 365.25) % 30.4375);
+      const hours = Math.floor(totalHours % 24);
+      const minutes = Math.floor(totalMinutes % 60);
+      const seconds = Math.floor(totalSeconds % 60);
+
+      // Update main counters
+      document.getElementById('years').textContent = years.toString().padStart(2, '0');
+      document.getElementById('months').textContent = months.toString().padStart(2, '0');
+      document.getElementById('days').textContent = days.toString().padStart(2, '0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      
+      // Update detail counters
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      document.getElementById('totalDays').textContent = totalDays.toLocaleString();
+      document.getElementById('totalHours').textContent = totalHours.toLocaleString();
+
+      // Update current time
+      const hourStr = now.getHours().toString().padStart(2, '0');
+      const minStr = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById('mainTime').textContent = `${hourStr}:${minStr}`;
+    }
+
+    function updateMeta() {
+      const now = new Date();
+      const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      document.getElementById('dayText').textContent = `${days[now.getDay()]} ${now.getDate()}`;
+      document.getElementById('tempText').textContent = '28°';
+    }
+
+    function setBackgroundByTime() {
+      const hour = new Date().getHours();
+      const body = document.getElementById("body");
+      
+      if (hour < 6) {
+        body.style.background = "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)";
+      } else if (hour < 12) {
+        body.style.background = "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)";
+      } else if (hour < 18) {
+        body.style.background = "linear-gradient(135deg, #16213e 0%, #0f3460 50%, #533483 100%)";
+      } else {
+        body.style.background = "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)";
+      }
+    }
+
+    // Initialize and set up intervals
+    function init() {
+      updateDisplay();
+      updateMeta();
+      setBackgroundByTime();
+      
+      // Update every second
+      setInterval(() => {
+        updateDisplay();
+        updateMeta();
+        setBackgroundByTime();
+      }, 1000);
+      
+      // Speak greeting on load
+      setTimeout(speakGreeting, 500);
+    }
+
+    // Start when page loads
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>

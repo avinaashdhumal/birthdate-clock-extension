@@ -27,31 +27,35 @@ body {
     align-items: flex-start;
     width: 90%;
     max-width: 600px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
   
   .main-clock {
-    font-size: 10rem;
+    font-size: 9rem;
     font-weight: bold;
-    letter-spacing: -6px;
+    letter-spacing: -5px;
+    font-family: 'Segoe UI', sans-serif;
   }
   
   .side-info {
     text-align: right;
     font-size: 1.4rem;
-    padding-top: 8px;
+    padding-top: 12px;
   }
   
   .alarm-icon {
     margin-right: 6px;
   }
   
-  .birth-clock {
-    font-size: 1.6rem;
+  .birth-clock-container {
     text-align: center;
-    line-height: 1.6;
-    white-space: pre-line;
-    color: #facc15;
-    margin-top: 20px;
+    line-height: 1.2;
+    margin-top: 10px;
   }
   
+  .birth-line {
+    font-size: 2.3rem;
+    color: #facc15;
+    font-weight: 600;
+    margin: 4px 0;
+  }
