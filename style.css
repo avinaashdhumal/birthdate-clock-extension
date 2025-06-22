@@ -1,0 +1,30 @@
+body {
+    background: black;
+    color: #fcd34d;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  .center {
+    font-size: 3rem;
+    line-height: 1.6;
+  }
+  .settings {
+    background: #111;
+    padding: 20px;
+    text-align: center;
+    color: white;
+  }
+  .settings input, .settings button {
+    font-size: 1rem;
+    padding: 8px;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
