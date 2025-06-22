@@ -3,9 +3,17 @@
 <head>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="center">
-    <div class="time" id="timeDisplay">Loading...</div>
+<body id="body">
+  <div class="clock-shell">
+    <div class="time-block">
+      <div class="main-clock" id="mainTime">--:--</div>
+      <div class="side-info">
+        <div id="dayText">SUN 16</div>
+        <div id="tempText">28°</div>
+        <div><span class="alarm-icon">🕗</span> 5:00AM</div>
+      </div>
+    </div>
+    <div class="birth-clock" id="timeDisplay">Loading...</div>
   </div>
   <script src="clock.js"></script>
 </body>

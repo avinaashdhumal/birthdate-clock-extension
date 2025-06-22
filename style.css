@@ -1,30 +1,57 @@
 body {
-    background: black;
-    color: #fcd34d;
-    font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    background: black;
+    font-family: 'Segoe UI', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  
+  .clock-shell {
+    width: 100vw;
     height: 100vh;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: #fcd34d;
+    transition: background 0.5s ease;
   }
-  .center {
-    font-size: 3rem;
+  
+  .time-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 600px;
+    margin-bottom: 60px;
+  }
+  
+  .main-clock {
+    font-size: 10rem;
+    font-weight: bold;
+    letter-spacing: -6px;
+  }
+  
+  .side-info {
+    text-align: right;
+    font-size: 1.4rem;
+    padding-top: 8px;
+  }
+  
+  .alarm-icon {
+    margin-right: 6px;
+  }
+  
+  .birth-clock {
+    font-size: 1.6rem;
+    text-align: center;
     line-height: 1.6;
+    white-space: pre-line;
+    color: #facc15;
+    margin-top: 20px;
   }
-  .settings {
-    background: #111;
-    padding: 20px;
-    text-align: center;
-    color: white;
-  }
-  .settings input, .settings button {
-    font-size: 1rem;
-    padding: 8px;
-    margin-top: 10px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  

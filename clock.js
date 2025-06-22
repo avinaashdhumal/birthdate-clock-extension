@@ -1,4 +1,16 @@
-function updateDisplay() {
+function speakGreeting() {
+    const hour = new Date().getHours();
+    let greeting = "Hello";
+    if (hour < 12) greeting = "Good morning";
+    else if (hour < 18) greeting = "Good afternoon";
+    else greeting = "Good evening";
+    const utter = new SpeechSynthesisUtterance(`${greeting}, welcome back.`);
+    utter.volume = 0.7;
+    utter.rate = 1;
+    speechSynthesis.speak(utter);
+  }
+  
+  function updateDisplay() {
     chrome.storage.sync.get('birthDatetime', ({ birthDatetime }) => {
       if (!birthDatetime) return;
       const birth = new Date(birthDatetime);
@@ -13,7 +25,36 @@ function updateDisplay() {
   
       const display = `${years}y ${months % 12}m ${days % 30}d\n${hours % 24}h ${minutes % 60}m ${seconds % 60}s`;
       document.getElementById('timeDisplay').innerText = display;
+  
+      const hourStr = now.getHours().toString().padStart(2, '0');
+      const minStr = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById('mainTime').innerText = `${hourStr}:${minStr}`;
     });
   }
-  setInterval(updateDisplay, 1000);
+  
+  function updateMeta() {
+    const now = new Date();
+    const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    document.getElementById('dayText').innerText = `${days[now.getDay()]} ${now.getDate()}`;
+    document.getElementById('tempText').innerText = '28°';
+  }
+  
+  function setBackgroundByTime() {
+    const hour = new Date().getHours();
+    const body = document.getElementById("body");
+    if (hour < 6) body.style.background = "#0b0c10";
+    else if (hour < 12) body.style.background = "#111927";
+    else if (hour < 18) body.style.background = "#212f45";
+    else body.style.background = "#0f172a";
+  }
+  
+  setInterval(() => {
+    updateDisplay();
+    updateMeta();
+    setBackgroundByTime();
+  }, 1000);
+  
   updateDisplay();
+  updateMeta();
+  setBackgroundByTime();
+  speakGreeting();
