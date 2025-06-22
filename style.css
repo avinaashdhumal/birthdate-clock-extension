@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -7,7 +7,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  } */
   
   .clock-shell {
     width: 100vw;
@@ -59,3 +59,446 @@ body {
     font-weight: 600;
     margin: 4px 0;
   }
+
+
+
+  /* new style */
+  /* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+} */
+
+/* Settings Container (Options Page) */
+.settings-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 450px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.settings-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+  background-size: 300% 300%;
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Header Styles */
+.header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.header-icon {
+  font-size: 48px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 15px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+h2 {
+  color: #2d3748;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Info Card */
+.info-card {
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.info-card i {
+  color: #667eea;
+  font-size: 20px;
+}
+
+.info-card p {
+  color: #4a5568;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Input Styles */
+.input-group {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.input-label {
+  display: block;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+#birthDatetime {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2d3748;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+#birthDatetime:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+#birthDatetime:hover {
+  border-color: #cbd5e0;
+}
+
+/* Button Styles */
+.save-button, .reset-button {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.save-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin-bottom: 20px;
+}
+
+.reset-button {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  color: white;
+  margin-bottom: 10px;
+}
+
+.save-button::before, .reset-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.save-button:hover::before, .reset-button:hover::before {
+  left: 100%;
+}
+
+.save-button:hover, .reset-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.reset-button:hover {
+  box-shadow: 0 10px 25px rgba(229, 62, 62, 0.3);
+}
+
+.save-button:active, .reset-button:active {
+  transform: translateY(0);
+}
+
+.save-button.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.save-button.loading .fa-save {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Messages */
+.success-message, .error-message {
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-top: 20px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  animation: slideIn 0.3s ease;
+}
+
+.success-message {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+}
+
+.error-message {
+  background: linear-gradient(135deg, #e53e3e, #c53030);
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Reset Section */
+.reset-section {
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.reset-help {
+  color: #718096;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* Popup Styles */
+.popup-container {
+  width: 320px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.popup-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.popup-header h3 {
+  color: #2d3748;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.popup-subtitle {
+  color: #718096;
+  font-size: 14px;
+}
+
+.age-display {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.age-number {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.age-label {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.info-item {
+  background: #f7fafc;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.info-item-label {
+  font-size: 12px;
+  color: #718096;
+  margin-bottom: 2px;
+}
+
+.info-item-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.setup-prompt {
+  text-align: center;
+  padding: 20px;
+}
+
+.setup-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.setup-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Clock Styles */
+.clock-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.clock-display {
+  font-size: 48px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+}
+
+.life-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .settings-container, .popup-container {
+      padding: 20px;
+      margin: 10px;
+  }
+  
+  h2 {
+      font-size: 24px;
+  }
+  
+  .header-icon {
+      font-size: 40px;
+  }
+  
+  .clock-display {
+      font-size: 36px;
+  }
+  
+  .info-grid {
+      grid-template-columns: 1fr;
+  }
+}

@@ -12,7 +12,7 @@
 
     body {
       height: 100vh;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      /* background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%); */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
@@ -58,17 +58,18 @@
     }
 
     .current-time {
-      font-size: 1.8rem;
+      font-size: 3rem;
       font-weight: 600;
-      color: #fbbf24;
-      text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+      color: #d0d0eb;
+      text-shadow: 0 0 10px rgba(67, 67, 77, 0.5);
       margin-bottom: 5px;
     }
 
     .current-info {
-      font-size: 1rem;
-      color: #94a3b8;
+      font-size: 1.2rem;
+      color: #edeff3;
       line-height: 1.4;
+      font-weight: bold;
     }
 
     .birth-time-display {
@@ -247,8 +248,8 @@
     <div class="current-time" id="mainTime">--:--</div>
     <div class="current-info">
       <div id="dayText">SUN 22</div>
-      <div id="tempText">28°</div>
-      <div><span>🕗</span> 5:00AM</div>
+      <!-- <div id="tempText">28°</div> -->
+      <!-- <div><span>🕗</span> 5:00AM</div> -->
     </div>
   </div>
 
@@ -299,118 +300,6 @@
   <div class="footer-stats">
     <div>Time since birth • Live counter • Personal milestone tracker</div>
   </div>
-
-  <script>
-    function speakGreeting() {
-      const hour = new Date().getHours();
-      let greeting = "Hello";
-      if (hour < 12) greeting = "Good morning";
-      else if (hour < 18) greeting = "Good afternoon";
-      else greeting = "Good evening";
-      
-      if ('speechSynthesis' in window) {
-        const utter = new SpeechSynthesisUtterance(`${greeting}, welcome back.`);
-        utter.volume = 0.7;
-        utter.rate = 1;
-        speechSynthesis.speak(utter);
-      }
-    }
-
-    function updateDisplay() {
-      // For demo purposes, using a sample birth date
-      // Replace this with your actual birth date
-      const birthDatetime = '1995-06-15T10:30:00'; // Sample date - replace with actual
-      
-      if (typeof chrome !== 'undefined' && chrome.storage) {
-        chrome.storage.sync.get('birthDatetime', ({ birthDatetime: storedBirth }) => {
-          if (storedBirth) {
-            calculateAndDisplay(storedBirth);
-          } else {
-            calculateAndDisplay(birthDatetime);
-          }
-        });
-      } else {
-        calculateAndDisplay(birthDatetime);
-      }
-    }
-
-    function calculateAndDisplay(birthDatetime) {
-      const birth = new Date(birthDatetime);
-      const now = new Date();
-      const diff = now - birth;
-      
-      // Calculate time units
-      const totalSeconds = Math.floor(diff / 1000);
-      const totalMinutes = Math.floor(totalSeconds / 60);
-      const totalHours = Math.floor(totalMinutes / 60);
-      const totalDays = Math.floor(totalHours / 24);
-      
-      const years = Math.floor(totalDays / 365.25);
-      const months = Math.floor((totalDays % 365.25) / 30.4375);
-      const days = Math.floor((totalDays % 365.25) % 30.4375);
-      const hours = Math.floor(totalHours % 24);
-      const minutes = Math.floor(totalMinutes % 60);
-      const seconds = Math.floor(totalSeconds % 60);
-
-      // Update main counters
-      document.getElementById('years').textContent = years.toString().padStart(2, '0');
-      document.getElementById('months').textContent = months.toString().padStart(2, '0');
-      document.getElementById('days').textContent = days.toString().padStart(2, '0');
-      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-      
-      // Update detail counters
-      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-      document.getElementById('totalDays').textContent = totalDays.toLocaleString();
-      document.getElementById('totalHours').textContent = totalHours.toLocaleString();
-
-      // Update current time
-      const hourStr = now.getHours().toString().padStart(2, '0');
-      const minStr = now.getMinutes().toString().padStart(2, '0');
-      document.getElementById('mainTime').textContent = `${hourStr}:${minStr}`;
-    }
-
-    function updateMeta() {
-      const now = new Date();
-      const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-      document.getElementById('dayText').textContent = `${days[now.getDay()]} ${now.getDate()}`;
-      document.getElementById('tempText').textContent = '28°';
-    }
-
-    function setBackgroundByTime() {
-      const hour = new Date().getHours();
-      const body = document.getElementById("body");
-      
-      if (hour < 6) {
-        body.style.background = "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)";
-      } else if (hour < 12) {
-        body.style.background = "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)";
-      } else if (hour < 18) {
-        body.style.background = "linear-gradient(135deg, #16213e 0%, #0f3460 50%, #533483 100%)";
-      } else {
-        body.style.background = "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)";
-      }
-    }
-
-    // Initialize and set up intervals
-    function init() {
-      updateDisplay();
-      updateMeta();
-      setBackgroundByTime();
-      
-      // Update every second
-      setInterval(() => {
-        updateDisplay();
-        updateMeta();
-        setBackgroundByTime();
-      }, 1000);
-      
-      // Speak greeting on load
-      setTimeout(speakGreeting, 500);
-    }
-
-    // Start when page loads
-    document.addEventListener('DOMContentLoaded', init);
-  </script>
+  <script src="clock.js"></script>
 </body>
 </html>

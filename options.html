@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birth Clock - Settings</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="settings">
-  <h2>Set Birthdate & Time</h2>
-  <input type="datetime-local" id="birthDatetime" />
-  <button id="save">Save</button>
-  <script src="options.js"></script>
+<body>
+    <div class="settings-container">
+        <div class="header">
+            <div class="header-icon">
+                <i class="fas fa-birthday-cake"></i>
+            </div>
+            <h2>Birth Clock Settings</h2>
+            <p class="subtitle">Set your birth date and time for personalized clock features</p>
+        </div>
+
+        <div class="info-card">
+            <i class="fas fa-info-circle"></i>
+            <p>Your birthdate helps us calculate your precise age and provide personalized time insights. This information is stored securely in your browser.</p>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label" for="birthDatetime">
+                <i class="fas fa-calendar-alt"></i>
+                Birth Date & Time
+            </label>
+            <div class="input-wrapper">
+                <input type="datetime-local" id="birthDatetime" />
+            </div>
+        </div>
+
+        <button class="save-button" id="save">
+            <i class="fas fa-save"></i>
+            Save Settings
+        </button>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            Settings saved successfully!
+        </div>
+
+        <div class="reset-section">
+            <button class="reset-button" id="resetButton">
+                <i class="fas fa-trash-alt"></i>
+                Reset Data
+            </button>
+            <p class="reset-help">Press Ctrl+R or click above to reset your birthdate</p>
+        </div>
+    </div>
+
+    <script src="options.js"></script>
 </body>
 </html>
