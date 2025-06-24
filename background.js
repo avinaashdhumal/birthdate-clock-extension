@@ -232,7 +232,7 @@ function checkSpecialMilestones() {
     const totalHours = Math.floor(diffTime / (1000 * 60 * 60));
     
     // Check for special day milestones
-    const specialDays = [5000, 7500, 10000, 12500, 15000, 20000, 25000];
+    const specialDays = [5000, 7500, 10000,10689, 12500, 15000, 20000, 25000];
     const specialHours = [100000, 200000, 250000, 500000, 750000, 1000000];
     
     if (specialDays.includes(totalDays)) {

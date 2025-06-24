@@ -20,7 +20,7 @@ function updateDisplay() {
       if (chrome.runtime.lastError) {
         console.error('Error loading birthdate:', chrome.runtime.lastError);
         // Fallback to demo date
-        calculateAndDisplay('1995-06-15T10:30:00');
+        calculateAndDisplay('1996-03-17T10:30:00');
         return;
       }
       
@@ -32,12 +32,12 @@ function updateDisplay() {
         // Show message to set birthdate
         showSetBirthdateMessage();
         // Use demo date for display
-        calculateAndDisplay('1995-06-15T10:30:00');
+        calculateAndDisplay('1996-03-17T10:30:00');
       }
     });
   } else {
     console.log('Chrome storage not available, using demo date');
-    calculateAndDisplay('1995-06-15T10:30:00');
+    calculateAndDisplay('1996-03-17T10:30:00');
   }
 }
 
